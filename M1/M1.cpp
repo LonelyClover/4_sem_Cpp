@@ -1,5 +1,3 @@
-//  FINISHED  //
-
 #include <iostream>
 #include <cmath>
 
@@ -53,7 +51,21 @@ int count_symbols(const char *str)
 
 int count_symbols(double f)
 {
-  return count_symbols((int) trunc(f));
+  if (f < 0)
+  {
+    f *= -1;
+  }
+
+  int count = 0;
+
+  do 
+  {
+    f /= 10;
+    count += 1;
+  }
+  while (f >= 1);
+
+  return count;
 }
 
 int count_symbols(double f, int n)
@@ -70,7 +82,7 @@ int main()
   cout << count_symbols("mather") << endl;
   cout << count_symbols(12389) << endl;
   cout << count_symbols(3.14, 3) << endl;
-  cout << count_symbols(2.71828) << endl;
+  cout << count_symbols(123446789.56) << endl;
   cout << count_symbols(array, 5) << endl;
   cout << count_symbols(array) << endl;
   return 0;
