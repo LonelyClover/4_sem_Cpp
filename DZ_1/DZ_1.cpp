@@ -6,7 +6,7 @@ class Quotient
     int num;
     unsigned int den;
 
-    int gcd(long long int a, long long int b) const;
+    int gcd(int a, int b) const;
 
   public:
     Quotient(int n = 0, int d = 1)
@@ -44,9 +44,9 @@ int main()
 }
 */
 
-int Quotient::gcd(long long int a, long long int b) const
+int Quotient::gcd(int a, int b) const
 {
-  long long int temp;
+  int temp;
   
   if (a < 0)
   {
