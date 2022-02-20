@@ -56,7 +56,6 @@ unsigned long left(unsigned long num, int N)
   return num;
 }
 
-///*
 using namespace std;
 
 int main()
@@ -67,14 +66,14 @@ int main()
   if (strcmp(token, "string") == 0)
   {
     char str[101] = {};
-    cin.getline(str, 101);
-    
     int N;
+    
+    cin.getline(str, 101);
     cin >> N;
 
     cout << left(str, N) << endl;
   }
-  else
+  else if (strcmp(token, "number") == 0)
   {
     unsigned long num;
     int N;
@@ -82,8 +81,11 @@ int main()
 
     cout << left(num, N) << endl;
   }
+  else
+  {
+    cout << 0 << endl;
+  }
 
   return 0;
 }
-//*/
 
