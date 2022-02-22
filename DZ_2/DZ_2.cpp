@@ -28,9 +28,9 @@ class mstring
 
 mstring::mstring(void)
 {
-  buf = new char[1];
-  buf[0] = '\0';
   len = 1;
+  buf = new char[len];
+  buf[0] = '\0';
   return;
 }
 
@@ -39,18 +39,29 @@ mstring::mstring(const mstring& str)
   len = str.len;
   buf = new char[len];
   memcpy(buf, str.buf, len);
+  return;
 }
 
 mstring::mstring(const char *str)
 {
+  if (str == NULL)
+  {
+    len = 1;
+    buf = new char[len];
+    buf[0] = '\0';
+    return;
+  }
+
   len = strlen(str) + 1;
   buf = new char[len];
   memcpy(buf, str, len);
+  return;
 }
 
 mstring::~mstring(void)
 {
   delete[] buf;
+  return;
 }
 
 inline int mstring::length(void) const
@@ -79,6 +90,11 @@ void mstring::add(char c)
 
 void mstring::add(const char *str)
 {
+  if (str == NULL)
+  {
+    return;
+  }
+
   int new_len = len + strlen(str);
   char *new_buf = new char[new_len];
   
@@ -111,6 +127,11 @@ void mstring::insert(char c, int i)
 
 void mstring::insert(const char *str, int i)
 {
+  if (str == NULL)
+  {
+    return;
+  }
+
   if (i < 0 || i > len)
   {
     return;
@@ -164,12 +185,43 @@ void mstring::del(int i, int j)
   len = new_len;
 }
 
+int mstring::search(const char *str) const
+{
+  if (str == NULL)
+  {
+    return -1;
+  }
+
+  char *ptr = strstr(buf, str);
+
+  if (ptr == NULL)
+  {
+    return -1;
+  }
+
+  return ptr - buf;
+}
+
+void mstring::replace(const char *sub_str, const char *new_str)
+{
+  int i = this -> search(sub_str);
+
+  if (i == -1)
+  {
+    return;
+  }
+
+  this -> del(i, i + strlen(sub_str) - 1);
+  this -> insert(new_str, i);
+  return;
+}
+
 void mstring::print(void) const
 {
   std::cout << buf << std::endl;
 }
 
-///*
+/*
 using namespace std;
 int main()
 {
@@ -197,6 +249,9 @@ int main()
         s1.del(5,7);
         s.print();
         s1.print();
+        cout << s.search("lo") << endl;
+        s2.replace("I!", "ELLO)");
+        s2.print();
         return 0;
 }
-//*/
+*/
