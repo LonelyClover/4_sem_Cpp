@@ -9,12 +9,12 @@ char* left(char *str, int N)
   while (*ptr != '\0' && N != 0)
   {
     ptr += 1;
-    N -= 1;
+    N >= 0 ? N -= 1 : N = -1;
   }
 
   *ptr = '\0';
 
-  if (N < 0)
+  if (N == -1)
   {
     return ptr;
   }
@@ -40,6 +40,11 @@ int count_digits(unsigned long num)
 
 unsigned long left(unsigned long num, int N)
 {
+  if (N < 0)
+  {
+    return 0;
+  }
+
   N = count_digits(num) - N;
   
   if (N < 0)
