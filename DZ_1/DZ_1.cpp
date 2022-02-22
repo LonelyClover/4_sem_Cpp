@@ -1,3 +1,5 @@
+//  FINISHED  //
+
 #include <iostream>
 
 class Quotient
