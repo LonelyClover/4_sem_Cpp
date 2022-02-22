@@ -15,7 +15,6 @@ class Vec
     
     void set(double arg, int coord);
     double get(int coord) const;
-    int getLen() const;
     double euc_norm(void) const;
     double max_norm(void) const;
     void print(void) const;
@@ -42,12 +41,12 @@ Vec::Vec(int len_, const double *v_)
 
 Vec::Vec(const Vec& vec)
 {
-  len = vec.getLen();
+  len = vec.len;
   v = new double[len];
 
   for (int i = 0; i < len; i++)
   {
-    v[i] = vec.get(i);
+    v[i] = vec.v[i];
   }
 
   return;
@@ -76,11 +75,6 @@ double Vec::get(int coord) const
   }
 
   return 0;
-}
-
-int Vec::getLen(void) const
-{
-  return len;
 }
 
 double Vec::euc_norm(void) const
