@@ -6,22 +6,20 @@ char* left(char *str, int N)
 
   char *ptr = str;
 
+  if (N < 0)
+  {
+    return "";
+  }
+
   while (*ptr != '\0' && N != 0)
   {
     ptr += 1;
-    N >= 0 ? N -= 1 : N = -1;
+    N -= 1;
   }
 
   *ptr = '\0';
 
-  if (N == -1)
-  {
-    return ptr;
-  }
-  else
-  {
-    return str;
-  }
+  return str;
 }
 
 int count_digits(unsigned long num)
