@@ -8,7 +8,8 @@ char* left(char *str, int N)
 
   if (N < 0)
   {
-    return "";
+    *str = '\0';
+		return str;
   }
 
   while (*ptr != '\0' && N != 0)
