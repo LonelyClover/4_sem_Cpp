@@ -291,7 +291,7 @@ const mstring operator*(int n, const mstring& str)
 {
 	if (n == 0)
 	{
-		return mstring(str);
+		return mstring();
 	}
 
 	mstring temp = mstring(str);
