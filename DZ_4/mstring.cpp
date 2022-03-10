@@ -85,7 +85,7 @@ void mstring::add(const char *str)
 
 void mstring::insert(char c, int i)
 {
-  if (i < 0 || i > len || (len == 1 && i == 1))
+  if (i < 0 || i > len - 1)
   {
     throw Exception("insert", i);
   }
@@ -104,7 +104,7 @@ void mstring::insert(char c, int i)
 
 void mstring::insert(const char *str, int i)
 {
-  if (i < 0 || i > len)
+  if (i < 0 || i > len - 1)
   {
     throw Exception("insert", i);
   }
@@ -187,10 +187,15 @@ void mstring::replace(const char *sub_str, const char *new_str)
   {
     return;
   }
+	
+	if (strlen(sub_str) != 0)
+	{
+		this -> del(i, i + strlen(sub_str) - 1);
+  }
 
-  this -> del(i, i + strlen(sub_str) - 1);
-  this -> insert(new_str, i);
-  return;
+	this -> insert(new_str, i);
+  
+	return;
 }
 
 void mstring::print(void) const
