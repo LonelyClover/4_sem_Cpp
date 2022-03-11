@@ -500,7 +500,6 @@ int main()
 	catch(const Exception& exc)
 	{
 		cerr << exc << endl;
-		return 1;
 	}
 	return 0;
 	
