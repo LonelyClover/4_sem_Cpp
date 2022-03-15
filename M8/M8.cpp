@@ -13,7 +13,7 @@ class event
 
 	public:
 		event(const char *name_, int d_, int m_, int y_);
-		~event(void);
+		virtual ~event(void);
 
 		virtual void print_res(void) const;
 		void change_date(int d_, int m_, int y_);
@@ -102,7 +102,7 @@ void exam::change_grade(int grade_)
 }
 
 
-///*
+/*
 int main()
 {
         const int NUM =7;
@@ -133,5 +133,5 @@ int main()
         delete session[i];
         return 0;
 }
-//*/
+*/
 
