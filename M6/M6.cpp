@@ -30,14 +30,16 @@ class Vec
 		friend std::ostream& operator<<(std::ostream& stream, const Vec& op);
 };
 
-enum err_t
-{
-	LEN_ERR,
-	COORD_ERR,
-};
 
 class Exception
 {
+	public:
+		enum err_t
+		{
+			LEN_ERR,
+			COORD_ERR,
+		};
+
 	private:
 		err_t err;
 		char method[6];
@@ -53,7 +55,7 @@ Vec::Vec(int len_, const double *v_)
 {
   if (len_ <= 0)
 	{
-		throw Exception(LEN_ERR);
+		throw Exception(Exception::LEN_ERR);
 	}
 
 	v = new double[len_];
@@ -91,7 +93,7 @@ void Vec::set(double arg, int coord)
 {
 	if (coord < 0 || coord >= len)
   {
-		throw Exception(COORD_ERR, "set()");
+		throw Exception(Exception::COORD_ERR, "set()");
   }
 
   v[coord] = arg;
@@ -103,7 +105,7 @@ double Vec::get(int coord) const
 {
   if (coord < 0 || coord >= len)
   {
-		throw Exception(COORD_ERR, "get()");
+		throw Exception(Exception::COORD_ERR, "get()");
   }
 
   return v[coord];
@@ -267,11 +269,11 @@ std::ostream& operator<<(std::ostream& stream, Exception& exc)
 
 	switch(exc.err)
 	{
-		case LEN_ERR:
+		case Exception::LEN_ERR:
 			stream << "length error";
 			break;
 		
-		case COORD_ERR:
+		case Exception::COORD_ERR:
 			stream << "coordinate error in " << exc.method;
 			break;
 	}
