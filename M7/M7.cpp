@@ -30,16 +30,18 @@ class Vec
 		friend std::ostream& operator<<(std::ostream& stream, const Vec& op);
 };
 
-enum err_t
-{
-	LEN_ERR,
-	COORD_ERR,
-	INDEX_ERR,
-	DIFF_LEN_ERR,
-};
 
 class Exception
 {
+	public:
+		enum err_t
+		{
+			LEN_ERR,
+			COORD_ERR,
+			INDEX_ERR,
+			DIFF_LEN_ERR,
+		};
+
 	private:
 		err_t err;
 		union
@@ -62,7 +64,7 @@ Vec::Vec(int len_, const double *v_)
 {
   if (len_ <= 0)
 	{
-		throw Exception(LEN_ERR);
+		throw Exception(Exception::LEN_ERR);
 	}
 
 	v = new double[len_];
@@ -100,7 +102,7 @@ void Vec::set(double arg, int coord)
 {
 	if (coord < 0 || coord >= len)
   {
-		throw Exception(COORD_ERR, "set()");
+		throw Exception(Exception::COORD_ERR, "set()");
   }
 
   v[coord] = arg;
@@ -112,7 +114,7 @@ double Vec::get(int coord) const
 {
   if (coord < 0 || coord >= len)
   {
-		throw Exception(COORD_ERR, "get()");
+		throw Exception(Exception::COORD_ERR, "get()");
   }
 
   return v[coord];
@@ -163,7 +165,7 @@ const Vec Vec::operator+(const Vec& op) const
 {
 	if (len != op.len)
 	{
-		throw Exception(DIFF_LEN_ERR, len, op.len);
+		throw Exception(Exception::DIFF_LEN_ERR, len, op.len);
 	}
 
 	Vec tmp = Vec(len);
@@ -180,7 +182,7 @@ const Vec Vec::operator-(const Vec& op) const
 {
 	if (len != op.len)
 	{
-		throw Exception(DIFF_LEN_ERR, len, op.len);
+		throw Exception(Exception::DIFF_LEN_ERR, len, op.len);
 	}
 
 	Vec tmp = Vec(len);
@@ -236,7 +238,7 @@ double& Vec::operator[](int i) const
 {
 	if (i < 0 || i >= len)
 	{
-		throw Exception(INDEX_ERR, i);
+		throw Exception(Exception::INDEX_ERR, i);
 	}
 
 	return v[i];
@@ -306,19 +308,19 @@ std::ostream& operator<<(std::ostream& stream, Exception& exc)
 
 	switch(exc.err)
 	{
-		case LEN_ERR:
+		case Exception::LEN_ERR:
 			stream << "length error";
 			break;
 		
-		case COORD_ERR:
+		case Exception::COORD_ERR:
 			stream << "coordinate error in " << exc.arg.method;
 			break;
 
-		case INDEX_ERR:
+		case Exception::INDEX_ERR:
 			stream << "incorrect indexing: " << exc.arg.index;
 			break;
 
-		case DIFF_LEN_ERR:
+		case Exception::DIFF_LEN_ERR:
 			stream << "addition of vectors of different lengths: " << exc.arg.len[0] << ' ' << exc.arg.len[1];
 			break; 
 	}
