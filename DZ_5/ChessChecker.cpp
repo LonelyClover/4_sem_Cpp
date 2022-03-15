@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Parcer.h"
+#include "Move.h"
 #include "ChessChecker.h"
 
 ChessChecker::ChessChecker(void)
@@ -33,10 +33,8 @@ void ChessChecker::load_move(std::istream& stream)
 
 bool ChessChecker::check_move(void) const
 {
-	Move move = parce_move(str);
+	Move move(str);
 
 	return figures[move.figure_id] -> move(move.start, move.end);
 }
-
-
 

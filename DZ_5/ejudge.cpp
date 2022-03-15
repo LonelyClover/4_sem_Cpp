@@ -38,23 +38,22 @@ class Knight : public Figure
 		bool move(int *start, int *end);
 };
 
-enum Figure_id
-{
-	KING = 0,
-	QUEEN,
-	ROOK,
-	BISHOP,
-	KNIGHT,
-};
 
 struct Move
 {
-	Figure_id figure_id;
+	enum Figure_id
+	{
+		KING = 0,
+		QUEEN,
+		ROOK,
+		BISHOP,
+		KNIGHT,
+	} figure_id;
 	int start[2];
 	int end[2];
-};
 
-Move parce_move(const char *str);
+	Move(const char* str);
+};
 
 class ChessChecker 
 {
@@ -149,35 +148,33 @@ bool Knight::move(int *start, int *end)
 	);
 }
 
-Move parce_move(const char *str)
+Move::Move(const char *str)
 {
 	if (strlen(str) != 7 || str[1] != ' ' || str[4] != ' ')
 	{
 		throw "Invalid move representation: wrong format";
 	}
-	
-	Move move = Move();
 
 	switch (str[0])
 	{
 		case 'K':
-			move.figure_id = KING;
+			figure_id = KING;
 			break;
 
 		case 'Q':
-			move.figure_id = QUEEN;
+			figure_id = QUEEN;
 			break;
 
 		case 'R':
-			move.figure_id = ROOK;
+			figure_id = ROOK;
 			break;
 
 		case 'B':
-			move.figure_id = BISHOP;
+			figure_id = BISHOP;
 			break;
 
 		case 'N':
-			move.figure_id = KNIGHT;
+			figure_id = KNIGHT;
 			break;
 		
 		default:
@@ -189,27 +186,27 @@ Move parce_move(const char *str)
 	{
 		throw "Invalid move representation: wrong starting file";
 	}
-	move.start[0] = str[2] - 'a';
+	start[0] = str[2] - 'a';
 
 	if (str[3] < '1' || str[3] > '8')
 	{
 		throw "Invalid move representation: wrong starting rank";
 	}
-	move.start[1] = str[3] - '1';
+	start[1] = str[3] - '1';
 
 	if (str[5] < 'a' || str[5] > 'h')
 	{
 		throw "Invalid move representation: wrong ending file";
 	}
-	move.end[0] = str[5] - 'a';
+	end[0] = str[5] - 'a';
 
 	if (str[6] < '1' || str[6] > '8')
 	{
 		throw "Invalid move representation: wrong ending rank";
 	}
-	move.end[1] = str[6] - '1';
+	end[1] = str[6] - '1';
 
-	return move;
+	return;
 }
 
 ChessChecker::ChessChecker(void)
@@ -243,7 +240,7 @@ void ChessChecker::load_move(std::istream& stream)
 
 bool ChessChecker::check_move(void) const
 {
-	Move move = parce_move(str);
+	Move move(str);
 
 	return figures[move.figure_id] -> move(move.start, move.end);
 }
