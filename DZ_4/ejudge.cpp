@@ -395,11 +395,11 @@ std::istream& operator>>(std::istream& stream, mstring& str)
 	
 	char c;
 
-	while (!stream.eof())
+	while (true)
 	{
 		stream.get(c);
 
-		if (c == '\n')
+		if (c == '\n' or stream.eof())
 		{
 			break;
 		}
